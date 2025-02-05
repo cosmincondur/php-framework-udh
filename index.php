@@ -1,7 +1,7 @@
 <?php
 
-require "Model.php";
-$model = new Model;
-$products = $model->getData();
+require "src/controllers/products.php";
 
-require "view.php";
+$controller = new Products;
+
+$controller->index();

@@ -1,6 +1,6 @@
 <?php
 
-class Model {
+class Product {
     public function getData(): array {
 
 $dsn = "mysql:host=localhost;dbname=pfu_dave_hall;charset=utf8;port:3306";
