@@ -1,13 +1,10 @@
 <?php
 
-require "src/controllers/products.php";
-
-$controller = new Products;
-
 $action = $_GET["action"];
+$controller = $_GET["controller"];
 
-if ($action === "index") {
-    $controller->index();
-} elseif ($action === "show") {
-    $controller->show();
-}
+require "src/controllers/$controller.php";
+
+$controller_object = new $controller;
+
+$controller_object->$action();
