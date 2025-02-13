@@ -1,0 +1,30 @@
+# Ignore Composer dependencies
+/vendor/
+/composer.lock
+
+# Ignore environment variables
+/.env
+
+# Ignore Docker files
+/docker-compose.override.yml
+/docker-compose.override.yaml
+/docker-compose.yml
+/docker-compose.yaml
+/.docker
+
+# Ignore IDE and editor files
+/.idea/
+/.vscode/
+/*.swp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore cache and temp files
+/cache/
+/tmp/
+/*.tmp
