@@ -28,3 +28,14 @@ Thumbs.db
 /cache/
 /tmp/
 /*.tmp
+
+# Ignore Node.js dependencies
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Ignore backup files
+*~
+
+# Ignore coverage reports
+/coverage/
