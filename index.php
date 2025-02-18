@@ -10,9 +10,10 @@ spl_autoload_register(function (string $class_name) {
 // when the Router is created, the autoload function is loading Router.php
 $router = new Framework\Router; // this is now : /src/Framework/Router.php
 
-$router->add("/home/index", ["controller" => "home", "action" => "index"]);
-$router->add("/products", ["controller" => "products", "action" => "index"]);
-$router->add("/", ["controller" => "home", "action" => "index"]);
+$router->add("/{controller}/{action}");
+// $router->add("/home/index", ["controller" => "home", "action" => "index"]);
+// $router->add("/products", ["controller" => "products", "action" => "index"]);
+// $router->add("/", ["controller" => "home", "action" => "index"]);
 
 $params = $router->match($path);
 
