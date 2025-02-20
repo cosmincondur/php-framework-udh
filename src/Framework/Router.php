@@ -16,31 +16,36 @@ class Router
 
     public function match(string $path): array|bool
     {
+        $path = trim($path, "/");
         foreach ($this->routes as $route) {
-            $pattern = "#^/(?<controller>[a-z]+)/(?<action>[a-z]+)$#";
 
-            echo $pattern, "\n", $route["path"], "\n";
-
-            $this->getPatternFromRoutePath($route["path"]);
+            $pattern = $this->getPatternFromRoutePath($route["path"]);
 
             if (preg_match($pattern, $path, $matches)) {
                 $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
 
-                return $matches;
+                $params = array_merge($matches, $route["params"]);
+
+                return $params;
             }
         }
 
         return false;
     }
 
-    private function getPatternFromRoutePath(string $route_path)
+    private function getPatternFromRoutePath(string $route_path): string
     {
-        $route_path = trim($route_path, "/");
+        $route_path = trim($route_path, "/"); // /home/user/ -> home/user
 
-        $segments = explode("/", $route_path);
+        $segments = explode("/", $route_path); // home/user -> ["home", "user"]
 
-        $segments = array_map(function (string $segment): string {}, $segments);
+        $segments = array_map(function (string $segment): string {
+            if (preg_match("#^{([a-z][a-z0-9]*)\}\$#", $segment, $matches)) {
+                $segment = "(?<" . $matches[1] . ">[a-z]+)";
+            }
+            return $segment;
+        }, $segments); // adding named groups
 
-        print_r($segments);
+        return "#^" . implode("/", $segments) . "$#"; // converts route segments into regex named group
     }
 }
