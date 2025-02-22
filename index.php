@@ -11,6 +11,7 @@ spl_autoload_register(function (string $class_name) {
 $router = new Framework\Router; // this is now : /src/Framework/Router.php
 
 $router->add("/{controller}/{action}");
+$router->add("/{controller}/{id}/{action}");
 $router->add("/home/index", ["controller" => "home", "action" => "index"]);
 $router->add("/products", ["controller" => "products", "action" => "index"]);
 $router->add("/", ["controller" => "home", "action" => "index"]);
