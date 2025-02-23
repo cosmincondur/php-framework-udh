@@ -21,6 +21,8 @@ class Router
 
             $pattern = $this->getPatternFromRoutePath($route["path"]);
 
+            echo $pattern . "\n";
+
             if (preg_match($pattern, $path, $matches)) {
                 $matches = array_filter($matches, "is_string", ARRAY_FILTER_USE_KEY);
 
@@ -41,7 +43,7 @@ class Router
 
         $segments = array_map(function (string $segment): string {
             if (preg_match("#^{([a-z][a-z0-9]*)\}\$#", $segment, $matches)) {
-                $segment = "(?<" . $matches[1] . ">[a-z]+)";
+                $segment = "(?<" . $matches[1] . ">[^/]*)";
             }
             return $segment;
         }, $segments); // adding named groups
