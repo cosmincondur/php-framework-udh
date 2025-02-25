@@ -42,8 +42,11 @@ class Router
         $segments = explode("/", $route_path); // home/user -> ["home", "user"]
 
         $segments = array_map(function (string $segment): string {
-            if (preg_match("#^{([a-z][a-z0-9]*)\}\$#", $segment, $matches)) {
-                $segment = "(?<" . $matches[1] . ">[^/]*)";
+            if (preg_match("#^\{([a-z][a-z0-9]*)\}$#", $segment, $matches)) {
+                return "(?<" . $matches[1] . ">[^/]*)";
+            }
+            if (preg_match("#^\{([a-z][a-z0-9]*):(.+)\}$#", $segment, $matches)) {
+                return "(?<" . $matches[1] . ">" . $matches[2] . ")";
             }
             return $segment;
         }, $segments); // adding named groups
